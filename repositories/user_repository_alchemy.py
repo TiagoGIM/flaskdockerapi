@@ -1,3 +1,4 @@
+from sqlalchemy import or_
 from repositories.user_repository import Repository
 from models.user import User
 from extensions import db
@@ -5,11 +6,12 @@ from extensions import db
 
 class RepositoryUserImpSQLAlchemy(Repository):
     @staticmethod
-    def create(username: str, email: str) -> User:
-        new_user = User(username=username, email=email)
-        db.session.add(new_user)
+    def create(user) -> User:
+        created = db.session.add(user)
+        print("what is returned")
+        print(created)
         db.session.commit()
-        return new_user
+        return created
 
     @staticmethod
     def find_all():
@@ -36,3 +38,9 @@ class RepositoryUserImpSQLAlchemy(Repository):
 
     def find_by_username(self, username: str) -> User:
         return User.query.filter_by(username=username).first()
+
+    def find_user_by_name_or_email(self, username, email):
+        user = User.query.filter(
+            or_(User.username == username, User.email == email)).first()
+
+        return user is not None

@@ -8,12 +8,15 @@ class UserService:
         self.repository = repository
 
     def create_user(self, user):
-        # new_user = User(username=user['username'], email=user['email'])
-        self.repository.create(username=user['username'], email=user['email'])
+        new_user = User(username=user['username'], email=user['email'])
+        self.repository.create(new_user)
 
     def get_all_users(self) -> List[User] | List[None]:
-        users = self.repository.getAll()
-        return [user.json() for user in users]
+        users = self.repository.find_all()
+        try:
+            return [user.json() for user in users]
+        except:
+            return []
 
     def get_user_by_id(self, user_id) -> User | None:
         user = self.repository.find_by_id(user_id)
@@ -35,5 +38,5 @@ class UserService:
             return True
         return False
 
-    def is_unique_user(self, username) -> bool:
-        return self.repository.find_by_username(username)
+    def is_email_or_name_in_use(self, user) -> bool:
+        return self.repository.find_user_by_name_or_email(user['username'], user['email'])
