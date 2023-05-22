@@ -7,7 +7,7 @@ This application uses the Model-View-Controller (MVC) pattern to separate the di
 For a step-by-step tutorial on how to set up and run this app, please check out our tutorial at [link](https://dev.to/francescoxx/build-a-crud-rest-api-in-python-using-flask-sqlalchemy-postgres-docker-28lo)
 
 ## Project Structure
-
+```
 ├── controllers/
 │   └── user_controller.py
 ├── models/
@@ -22,7 +22,7 @@ For a step-by-step tutorial on how to set up and run this app, please check out 
 ├── Dockerfile
 ├── extensions.py
 └── routes.py
-
+```
 - `app.py`: main Flask application file
 - `extensions.py`: module for extensions (e.g. DB) initialization and connection to database (`db.session`)
 - `routes.py`: directory for Flask routes
