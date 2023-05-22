@@ -6,8 +6,7 @@ from routes import user as user_routes_blueprint
 
 def create_app():
     app = Flask(__name__)
-#   app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgrespw@localhost:49153'
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
     db.init_app(app)
 
     return app
