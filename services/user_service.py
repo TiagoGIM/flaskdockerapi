@@ -11,14 +11,14 @@ class UserService:
         new_user = User(username=user['username'], email=user['email'])
         self.repository.create(new_user)
 
-    def get_all_users(self) -> List[User] | List[None]:
+    def get_all_users(self) -> List[User]:
         users = self.repository.find_all()
         try:
             return [user.json() for user in users]
         except:
             return []
 
-    def get_user_by_id(self, user_id) -> User | None:
+    def get_user_by_id(self, user_id) -> User:
         user = self.repository.find_by_id(user_id)
         return user.json() if user else None
 

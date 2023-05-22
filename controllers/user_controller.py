@@ -12,11 +12,12 @@ def create_user():
     data = request.json
     try:
         user = {'username': data['username'], 'email': data['email']}
-        if (not user_service.is_email_or_name_in_use(user)):
-            user_service.create_user(user)
-        else:
-            # 400 means bad request.  A client
-            return make_response(jsonify({'message': 'username or email already exists'}), 400)
+        user_service.create_user(user)
+        # if (not user_service.is_email_or_name_in_use(user)):
+        #     user_service.create_user(user)
+        # else:
+        #     # 400 means bad request.  A client
+        #     return make_response(jsonify({'message': 'username or email already exists'}), 400)
 
         return make_response(jsonify({'message': 'user created', 'user': user}), 201)
     except Exception as e:
