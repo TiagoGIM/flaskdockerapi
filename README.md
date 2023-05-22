@@ -74,3 +74,6 @@ This app enables the following CRUD operations:
 ## Contributing
 
 To contribute to this project, please fork the repository and submit a pull request.
+
+## WIP
+Next steps and use cases [doc](next-steps.md)
