@@ -12,10 +12,6 @@ def create_app():
     return app
 
 
-def test():
-    return make_response(jsonify({'message': 'test route'}), 200)
-
-
 app = create_app()
 
 app.register_blueprint(user_routes_blueprint)
