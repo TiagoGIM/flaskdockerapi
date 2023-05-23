@@ -28,7 +28,7 @@ The Investment entity represents an investment in a specific type of Investment 
 - type (investment type - STOCKS, FIXED INCOME, OTHERS)
 - applied_value (amount invested)
 - quantity (number of units)
-- ticker (stock code or fixed income security title)
+- ticker (stock code or fixed income  title)
 - user_id (identifier of the investment's owner)
 - portfolio_id (identifier of the investment's portfolio, if it is part of one)
 
@@ -39,11 +39,11 @@ The Stock entity represents a specific stock. It has the following attributes:
 - name (stock's name)
 - ticker (stock code)
 
-### Fixed Income Security
-The Fixed Income Security entity represents a specific fixed income security. It has the following attributes:
+### Fixed Income
+The Fixed Income entity represents a specific fixed income. It has the following attributes:
 
 - id (unique identifier)
-- name (fixed income security's name)
-- ticker (fixed income security's code)
+- name (fixed income 's name)
+- ticker (fixed income 's code)
 
 With these updates, all investments necessarily belong to a user, through the "user_id" attribute, and may or may not belong to an investment portfolio through the "portfolio_id" attribute. The modeling also allows the addition of other types of investments, besides stocks and fixed income securities, if necessary in the future.
