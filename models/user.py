@@ -6,7 +6,7 @@ import enum
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
@@ -79,7 +79,7 @@ class Investment(db.Model):
 class Stock(db.Model):
     __tablename__ = 'stocks'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     ticker = db.Column(db.String(20), nullable=False)
     price = db.Column(db.Numeric(12, 2), nullable=False)
@@ -89,7 +89,7 @@ class Stock(db.Model):
 
     def json(self):
         '''Return a JSON representation of the object'''
-        return {'id': id, 'name': self.name, 'ticker': self.ticker, 'price': self.price}
+        return {'id': self.id, 'name': self.name, 'ticker': self.ticker, 'price': self.price}
 
 
 class FixedIncome(db.Model):
