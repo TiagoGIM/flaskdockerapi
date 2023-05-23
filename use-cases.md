@@ -21,7 +21,6 @@ Access to the investment platform
 The investment is registered in the investor's account.
 
 
-
 ## Use Case 2 - View investment details
 
 ### Actor
