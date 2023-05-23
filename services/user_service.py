@@ -8,8 +8,7 @@ class UserService:
         self.repository = repository
 
     def create_user(self, user):
-        new_user = User(username=user['username'], email=user['email'])
-        self.repository.create(new_user)
+        return self.repository.create(user)
 
     def get_all_users(self) -> List[User]:
         users = self.repository.find_all()
@@ -39,4 +38,4 @@ class UserService:
         return False
 
     def is_email_or_name_in_use(self, user) -> bool:
-        return self.repository.find_user_by_name_or_email(user['username'], user['email'])
+        return self.repository.find_user_by_name_or_email(user)

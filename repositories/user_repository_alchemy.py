@@ -7,11 +7,10 @@ from extensions import db
 class RepositoryUserImpSQLAlchemy(Repository):
     @staticmethod
     def create(user) -> User:
-        created = db.session.add(user)
-        print("what is returned")
-        print(created)
+        db.session.add(user)
         db.session.commit()
-        return created
+        db.session.flush()
+        return user
 
     @staticmethod
     def find_all():
@@ -39,8 +38,9 @@ class RepositoryUserImpSQLAlchemy(Repository):
     def find_by_username(self, username: str) -> User:
         return User.query.filter_by(username=username).first()
 
-    def find_user_by_name_or_email(self, username, email):
+    def find_user_by_name_or_email(self, user: User):
+
         user = User.query.filter(
-            or_(User.username == username, User.email == email)).first()
+            or_(User.username == user.username, User.email == user.email)).first()
 
         return user is not None
