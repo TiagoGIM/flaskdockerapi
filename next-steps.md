@@ -6,16 +6,16 @@
 - [ ] Implement OAuth login.
 - [ ] Start documentation with [Swagger](https://swagger.io/blog/api-development/automatically-generating-swagger-specifications-wi/)
 
-- [ ] CRUD User
+
 - [ ] CRUD Aport
 - [ ] CRUD Portfolio
 ## DOING:
 - [ ] Document Feature  [Use Case 1 - Register an investment](use-cases.md##-Use-Case-1).
   - [x] [Modeling DataBase](UC-1.md##-Representation-of-Users-and-Investments). 
-
+- [ ] CRUD User
 - [ ] CRUD Stock :
-  -[x] CRUD service, repository and controller.
-  -[ ] POST and PUT validation fields ( almost there )
+  - [x] CRUD service, repository and controller.
+  - [ ] POST and PUT validation fields ( almost there )
 
 
 # DONE
