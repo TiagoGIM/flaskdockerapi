@@ -20,15 +20,20 @@ def ValidModel(Model):
         @wraps(func)
         def wrapper(*args, **kwargs):
             try:
-                if request.method == 'POST':
+                if request.method == 'POST' or request.method == 'PUT':
+                    if not request.data:
+                        # 400 is the HTTP status code for "Bad request" message. It can be changed to any other
+                        abort(400, 'No data provided')
+
                     json_data = json.loads(request.data)
                     if not json_data:
                         return make_response(f'body must contain JSON with this fields : {", ".join(get_required_fields())}', 400)
 
                     if not all(key in inspect(Model).columns for key in json_data.keys()):
+                        modelKeys = set(inspect(Model).columns.keys())
                         extra_keys = ", ".join(
                             set(json_data.keys()) - set(inspect(Model).columns.keys()))
-                        return make_response(f'JSON contains extra fields: {extra_keys}.', 400)
+                        return make_response(f'Body contains extra fields: {extra_keys}. Fields allowed : {modelKeys}', 400)
                     required_fields = get_required_fields()
                     missing_fields = set(required_fields) - \
                         set(json_data.keys())
