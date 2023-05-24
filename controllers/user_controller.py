@@ -14,6 +14,7 @@ user_service = UserService(user_repository)
 def create_user():
     data = request.json
     user = User(**data)
+
     try:
         if (not user_service.is_email_or_name_in_use(user)):
             created = user_service.create_user(user)
@@ -22,11 +23,11 @@ def create_user():
             return make_response(jsonify({'message': 'username or email already exists'}), 400)
         return make_response(jsonify({'message': 'user created', 'user': created.json()}), 201)
     except Exception as e:
-        return make_response(jsonify({'message': 'error creating user', 'error': str(e)}), 500)
+        return make_response({'message': 'error creating user', 'error': str(e)}, 500)
 
 
-def get_user(user_id):
-    user = user_service.get_user_by_id(user_id)
+def get_user(id):
+    user = user_service.get_user_by_id(id)
 
     if user:
         return jsonify({'id': user['id'], 'username': user['username'], 'email': user['email']})
@@ -35,25 +36,26 @@ def get_user(user_id):
 
 
 @ValidModel(User)
-def update_user(user_id):
-    # Parse request data and create a new user object
+def update_user(id):
     data = request.json
-    user = User(data['username'], data['email'])
-    user.id = user_id
+    user = User(**data)
+    user.id = id
 
     try:
-        user_service.update_user(user)
-        return jsonify({'message': 'User updated successfully'})
+        if (not user_service.update_user(user)):
+            return make_response({'message': 'user not found'}, 404)
+        return make_response({'message': 'User updated successfully'}, 200)
     except Exception as e:
-        return jsonify({'message': str(e)}), 404
+        return jsonify({'message': str(e)}), 500
 
 
-def delete_user(user_id):
+def delete_user(id):
     try:
-        user_service.delete_user(user_id)
-        return jsonify({'message': 'User deleted successfully'})
+        if (user_service.delete_user(id)):
+            return jsonify({'message': 'User deleted successfully'})
+        return make_response({'message': 'user not found'}, 404)
     except Exception as e:
-        return jsonify({'message': str(e)}), 404
+        return jsonify({'message': str(e)}), 500
 
 
 def get_all():

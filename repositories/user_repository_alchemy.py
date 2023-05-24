@@ -1,3 +1,4 @@
+from ast import List
 from sqlalchemy import or_
 from repositories.user_repository import Repository
 from models.user import User
@@ -20,27 +21,26 @@ class RepositoryUserImpSQLAlchemy(Repository):
     def find_by_id(user_id: int) -> User:
         return User.query.filter_by(id=user_id).first()
 
-    def update(self, user_id: int, username: str, email: str):
-        user = self.find_by_id(user_id)
-
+    @staticmethod
+    def update(user: User) -> bool:
         if user:
-            user.username = username
-            user.email = email
             db.session.commit()
+            return True
+        return False
 
     def delete(self, user_id: int):
         user = self.find_by_id(user_id)
-
         if user:
             db.session.delete(user)
             db.session.commit()
+            db.session.flush()
+            return True
 
-    def find_by_username(self, username: str) -> User:
-        return User.query.filter_by(username=username).first()
+        return False
 
-    def find_user_by_name_or_email(self, user: User):
+    @staticmethod
+    def find_user_by_prop_list(user: User, props: List):
+        query = User.query.filter(
+            or_(*[getattr(User, prop) == getattr(user, prop) for prop in props]))
 
-        user = User.query.filter(
-            or_(User.username == user.username, User.email == user.email)).first()
-
-        return user is not None
+        return query.first()
