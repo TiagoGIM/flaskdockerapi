@@ -10,7 +10,7 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    def find_by_id(self, id) -> User:
+    def find_by_id(self, id):
         pass
 
     @abstractmethod
@@ -18,7 +18,7 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    def delete(self, id) -> bool:
+    def delete(self, stock):
         pass
 
     @abstractmethod

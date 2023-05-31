@@ -52,8 +52,11 @@ class UserService:
             The User object associated with the given ID, if it exists in the database.
             None if the user is not found.
         """
+        print('user id', user_id)
         user = self.repository.find_by_id(user_id)
-        return user.json() if user else None
+        # user object is None if the user is not found in the database.
+        print('user', user.username)
+        return user if user else None
 
     def update_user(self, data: User) -> bool:
         """
@@ -65,10 +68,12 @@ class UserService:
         Returns:
             bool: True if the user is successfully updated.
         """
+        print('broking here', data.id, data.username)
         user = self.get_user_by_id(data.id)
         if user:
             self.repository.update(user)
             return True
+        print('return false')
         return False
 
     def delete_user(self, id) -> bool:

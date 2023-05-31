@@ -9,6 +9,7 @@ services:
       - "4000:4000"
     environment:
       - DB_URL=postgresql://postgres:postgres@flask_db:5432/postgres
+      - DB_URL_DEV=postgresql://postgres:postgrespw@localhost:49153
     depends_on:
       - flask_db
   flask_db:
@@ -20,6 +21,8 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+      - GOOGLE_CLIENT_ID=678682305187-23gqphd63is8cff1pqu6ooenv4cbdo7n.apps.googleusercontent.com
+      - GOOGLE_CLIENT_KEY=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
     volumes:
       - pgdata:/var/lib/postgresql/data
 

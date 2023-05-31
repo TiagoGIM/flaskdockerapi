@@ -23,13 +23,15 @@ class RepositoryUserImpSQLAlchemy(Repository):
 
     @staticmethod
     def update(user: User) -> bool:
+        print('user', user)
         if user:
             db.session.commit()
             return True
         return False
 
-    def delete(self, user_id: int):
-        user = self.find_by_id(user_id)
+    @staticmethod
+    def delete(user_id: int):
+        user = User.query.find_by_id(user_id)
         if user:
             db.session.delete(user)
             db.session.commit()

@@ -30,7 +30,9 @@ def get_user(id):
     user = user_service.get_user_by_id(id)
 
     if user:
-        return jsonify({'id': user['id'], 'username': user['username'], 'email': user['email']})
+        # OK (201) created (200)
+        return make_response({'message': 'user found', 'user': user.json()}, 200)
+
     else:
         return jsonify({'message': 'User not found'}), 404
 

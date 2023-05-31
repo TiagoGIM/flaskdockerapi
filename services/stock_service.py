@@ -1,5 +1,5 @@
 from typing import List, Optional
-from models.user import Stock
+from models.stock import Stock
 from repositories.user_repository import Repository
 
 
@@ -15,6 +15,8 @@ class StockService:
         return self.repository.find_all()
 
     def get_by_id(self, id: int) -> Optional[Stock]:
+        print(self.repository.find_by_id(id)
+              )
         return self.repository.find_by_id(id)
 
     def update(self, stock) -> Optional[Stock]:

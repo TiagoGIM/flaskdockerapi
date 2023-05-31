@@ -2,7 +2,7 @@
 from functools import wraps
 from flask import request, jsonify, make_response
 from helpers.validators import ValidModel
-from models.user import Stock
+from models.stock import Stock
 from repositories.stock_repository_alchemy import RepositoryStockImpSQLAlchemy
 from services.stock_service import StockService
 
@@ -43,13 +43,15 @@ def get_stock(id):
         return make_response(jsonify({'message': 'error getting user'}), 500)
 
 
+@ValidModel(Stock)
 def update_stock(id):
     try:
         stock = stock_service.get_by_id(id)
 
-        if stock:
+        if stock is not None:
             data = request.json
             stock_to_update = Stock(**data)
+            stock_to_update.id = id
             updated_stock = stock_service.update(stock_to_update)
             return make_response(jsonify({'message': 'Stock updated', 'updated ': updated_stock.json()}), 200)
 

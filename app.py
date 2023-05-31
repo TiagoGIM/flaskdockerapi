@@ -1,5 +1,4 @@
-from routes import user as user_routes_blueprint
-from routes import stock as stock_routes_blueprint
+from routes import all_routes, user, stock, wallet
 from extensions import db, migrate
 from flask import Flask
 from os import environ
@@ -25,7 +24,9 @@ def create_app():
 
 app = create_app()
 
-app.register_blueprint(user_routes_blueprint)
-app.register_blueprint(stock_routes_blueprint)
+for rt in all_routes:
+    app.register_blueprint(rt)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
