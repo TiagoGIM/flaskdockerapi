@@ -1,4 +1,4 @@
-from routes import all_routes, user, stock, wallet
+from routes import all_routes
 from extensions import db, migrate
 from flask import Flask
 from os import environ
