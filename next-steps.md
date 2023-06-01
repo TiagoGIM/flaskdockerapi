@@ -5,17 +5,17 @@
 - [ ] add document to read.me how to do migrate.
 - [ ] Implement OAuth login.
 - [ ] Start documentation with [Swagger](https://swagger.io/blog/api-development/automatically-generating-swagger-specifications-wi/)
-- [ ] CRUD Aport
-- [ ] CRUD Portfolio
+- [ ]  Document CRUD API
 ## DOING:
 - [ ] Document Feature  [Use Case 1 - Register an investment](use-cases.md##-Use-Case-1).
   - [x] [Modeling DataBase](UC-1.md##-Representation-of-Users-and-Investments).
 
-- [ ] Document CRUD user
-- [ ] Document CRUD Stock
+
 
 # DONE
 - [x] Write tasks for the first [use case](use-cases.md) using BDD.
+- [x] CRUD Investiment
+- [x] CRUD Portfolio
 
 - [x] CRUD User ( blueprint, controller, service and repository)
   - [x] Create User with validation
