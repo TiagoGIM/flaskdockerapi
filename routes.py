@@ -3,11 +3,15 @@ from controllers.user_controller import delete_user, get_all, get_user, create_u
 from controllers.stock_controller import create_stock, delete_stock, get_all_stocks, get_stock, update_stock
 from controllers.portfolio_controller import create_portfolio, delete_portfolio, get_portfolio, update_portfolio
 from controllers.investment_controller import create_investment, get_all_investments, update_investment, delete_investment
+from controllers.file_controller import upload_file
 
 user = Blueprint('user_controller', __name__, url_prefix='/users')
 stock = Blueprint('stock_controller', __name__, url_prefix='/stocks')
 basket = Blueprint('wallet_controller', __name__, url_prefix='/basket')
-investment = Blueprint('investments_controller', __name__, url_prefix='/investments')
+investment = Blueprint(
+                      'investments_controller',
+                       __name__, url_prefix='/investments')
+file = Blueprint('file_controller', __name__, url_prefix='/upload-file')
 
 user.route('/', methods=['POST'])(create_user)
 user.route('/<int:id>', methods=['GET'])(get_user)
@@ -36,4 +40,7 @@ investment.route('/', methods=['PUT'])(update_investment)
 investment.route('/<int:id>', methods=['DELETE'])(delete_investment)
 
 
-all_routes = [user, stock, basket, investment]
+file.route('/', methods=['POST'])(upload_file)
+
+
+all_routes = [user, stock, basket, investment, file]
