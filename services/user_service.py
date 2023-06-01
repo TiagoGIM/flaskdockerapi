@@ -1,10 +1,12 @@
+import inspect
 from typing import List
 from models.user import User
+from repositories.user_repository import Repository
 
 
 class UserService:
 
-    def __init__(self, repository):
+    def __init__(self, repository : Repository):
         """
         UserService  Sets a repository object for interacting with user data in the database.
         Injection of the repository allows for decoupling of the UserService logic from the specifics of the repository implementation.
@@ -52,11 +54,11 @@ class UserService:
             The User object associated with the given ID, if it exists in the database.
             None if the user is not found.
         """
-        print('user id', user_id)
+
         user = self.repository.find_by_id(user_id)
-        # user object is None if the user is not found in the database.
-        print('user', user.username)
-        return user if user else None
+
+
+        return object_as_dict(user)
 
     def update_user(self, data: User) -> bool:
         """
@@ -73,7 +75,6 @@ class UserService:
         if user:
             self.repository.update(user)
             return True
-        print('return false')
         return False
 
     def delete_user(self, id) -> bool:
@@ -104,3 +105,11 @@ class UserService:
             user, props)
 
         return found_user is not None
+
+
+def object_as_dict(row):
+    d = {}
+    for column in row.__table__.columns:
+        d[column.name] = str(getattr(row, column.name))
+
+    return d
