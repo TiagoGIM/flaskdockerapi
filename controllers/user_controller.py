@@ -29,12 +29,15 @@ def create_user():
 def get_user(id):
     user = user_service.get_user_by_id(id)
 
-    if user:
-        # OK (201) created (200)
-        return make_response({'message': 'user found', 'user': user.json()}, 200)
+    try:
+        if user is not None:
 
-    else:
-        return jsonify({'message': 'User not found'}), 404
+            return make_response({'message': 'user found', 'user': user}, 200)
+
+        else:
+            return jsonify({'message': 'User not found'}), 404
+    except Exception as e:
+        return make_response({'message': 'error getting user', 'error': str(e)}, 500)
 
 
 @ValidModel(User)
@@ -65,4 +68,5 @@ def get_all():
         users = user_service.get_all_users()
         return jsonify({'users': [user for user in users]})
     except Exception as e:
+        print(e)
         return make_response(jsonify({'message': 'error getting users', 'error': str(e)}), 500)
