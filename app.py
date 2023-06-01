@@ -16,6 +16,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = URL_DB
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -23,6 +24,7 @@ def create_app():
 
 
 app = create_app()
+
 
 for rt in all_routes:
     app.register_blueprint(rt)
