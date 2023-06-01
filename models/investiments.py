@@ -20,10 +20,9 @@ class Investment(db.Model):
     applied_value = db.Column(db.Numeric(12, 2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     ticker = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(
-        db.DateTime, default=datetime.datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(
-        db.DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow, nullable=False)
+        db.DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey(
         'users.id'), nullable=False)
 
