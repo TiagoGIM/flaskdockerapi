@@ -28,9 +28,8 @@ class RepositoryPortfolioImpSQLAlchemy(Repository):
     @staticmethod
     def update(portfolio: Portfolio):
         found_user = User.query.filter_by(id=portfolio.user_id).first()
-        found_port = Portfolio.query.filter_by(id=portfolio.id).first()  # type: Portfolio  # noqa:
-        if found_user and found_port:
-            db.session.add(portfolio)
+        if found_user :
+            db.session.merge(portfolio)
             db.session.commit()
             db.session.flush()
             return portfolio

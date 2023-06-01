@@ -10,8 +10,8 @@ class PortfolioService:
         return self.repository.create(portfolio)
 
     def get_portfolio(self, id: int):
-        investments = self.repository.find_all_investments_related(id)
         portfolio = self.repository.find_by_id(id)
+        investments = self.repository.find_all_investments_related(id)
         response = {}
 
         if portfolio is not None:
@@ -20,13 +20,16 @@ class PortfolioService:
                 response["investments"] = [investment.json()
                                            for investment in investments]
         return response
+    
+    
+    def update_portfolio(self, portifolio: Portfolio,):
 
-    def update_portfolio(self, id: int,):
-        port = self.repository.find_by_id(id)
-        if port is not None:
-            self.repository.update(port)
-            return True
-        return False
+        portfolio = self.repository.find_by_id(portifolio.id)
+        if portfolio is not None:
+            self.repository.update(portfolio, portifolio)
+            return portfolio
+        return None
+
 
     def delete_portfolio(self, id: int):
         return self.repository.delete(id)
