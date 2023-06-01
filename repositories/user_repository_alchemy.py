@@ -23,7 +23,6 @@ class RepositoryUserImpSQLAlchemy(Repository):
 
     @staticmethod
     def update(user: User) -> bool:
-        print('user', user)
         if user:
             db.session.commit()
             return True
